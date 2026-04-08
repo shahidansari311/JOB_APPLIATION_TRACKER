@@ -1,31 +1,28 @@
-import Job from "../models/job.model.js";
+import asyncHandler from "../utils/asyncHandler.js";
+import { sendSuccess } from "../utils/apiResponse.js";
+import { getApplicationsByStatus, getApplicationStats } from "../services/job.services.js";
+import mongoose from "mongoose";
 
-export const createJob = async (req, res) => {
-  const job = await Job.create({
-    ...req.body,
-    user: req.user
-  });
+/**
+ * @route   GET /api/jobs/board
+ * @desc    Get applications grouped by status (Kanban board view)
+ * @access  Private
+ */
+export const getBoard = asyncHandler(async (req, res) => {
+  const userId = new mongoose.Types.ObjectId(req.user);
+  const grouped = await getApplicationsByStatus(userId);
 
-  res.json(job);
-};
+  sendSuccess(res, grouped, "Board data fetched successfully");
+});
 
-export const getJobs = async (req, res) => {
-  const jobs = await Job.find({ user: req.user });
-  res.json(jobs);
-};
+/**
+ * @route   GET /api/jobs/stats
+ * @desc    Get dashboard statistics
+ * @access  Private
+ */
+export const getStats = asyncHandler(async (req, res) => {
+  const userId = new mongoose.Types.ObjectId(req.user);
+  const stats = await getApplicationStats(userId);
 
-export const updateJob = async (req, res) => {
-  const job = await Job.findById(req.params.id);
-
-  if (!job) return res.status(404).json({ message: "Job not found" });
-
-  job.status = req.body.status || job.status;
-  await job.save();
-
-  res.json(job);
-};
-
-export const deleteJob = async (req, res) => {
-  await Job.findByIdAndDelete(req.params.id);
-  res.json({ message: "Job deleted" });
-};
+  sendSuccess(res, stats, "Stats fetched successfully");
+});

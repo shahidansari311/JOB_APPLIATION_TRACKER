@@ -7,12 +7,12 @@ const jobSchema = new mongoose.Schema(
     status: {
       type: String,
       enum: ["applied", "interview", "offer", "rejected"],
-      default: "applied"
+      default: "applied",
     },
     user: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "User"
-    }
+      ref: "User",
+    },
   },
   { timestamps: true }
 );
