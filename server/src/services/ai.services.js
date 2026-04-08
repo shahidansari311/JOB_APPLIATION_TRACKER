@@ -1,8 +1,19 @@
 import OpenAI from "openai";
 
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
+let openai = null;
+
+/**
+ * Get or create the OpenAI client (lazy initialization).
+ * This avoids crashing at import time when env vars haven't loaded yet.
+ */
+const getOpenAIClient = () => {
+  if (!openai) {
+    openai = new OpenAI({
+      apiKey: process.env.OPENAI_API_KEY,
+    });
+  }
+  return openai;
+};
 
 /**
  * Parse a job description using OpenAI and extract structured data.
@@ -19,7 +30,7 @@ export const parseJobDescription = async (jobDescription) => {
   }
 
   try {
-    const response = await openai.chat.completions.create({
+    const response = await getOpenAIClient().chat.completions.create({
       model: "gpt-4o-mini",
       response_format: { type: "json_object" },
       messages: [
@@ -86,7 +97,7 @@ export const generateResumeSuggestions = async (jobDetails) => {
   }
 
   try {
-    const response = await openai.chat.completions.create({
+    const response = await getOpenAIClient().chat.completions.create({
       model: "gpt-4o-mini",
       response_format: { type: "json_object" },
       messages: [
