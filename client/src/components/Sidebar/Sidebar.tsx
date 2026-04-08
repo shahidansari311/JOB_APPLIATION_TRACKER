@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import {
   IoGridOutline,
@@ -9,13 +9,11 @@ import {
   IoLogOutOutline,
   IoHelpCircleOutline,
   IoSparkles,
-  IoRocketOutline,
 } from 'react-icons/io5';
 import './Sidebar.css';
 
 const Sidebar: React.FC = () => {
-  const { logout, user } = useAuth();
-  const location = useLocation();
+  const { logout } = useAuth();
 
   const navItems = [
     { path: '/dashboard', label: 'Dashboard', icon: IoGridOutline },
@@ -34,7 +32,7 @@ const Sidebar: React.FC = () => {
           </div>
           <div className="sidebar-brand-text">
             <span className="sidebar-brand-name">Curator AI</span>
-            <span className="sidebar-brand-sub">PRO WORKSPACE</span>
+            <span className="sidebar-brand-sub">WORKSPACE</span>
           </div>
         </div>
 
@@ -53,17 +51,6 @@ const Sidebar: React.FC = () => {
             </NavLink>
           ))}
         </nav>
-
-        {/* Pro CTA card */}
-        <div className="sidebar-cta">
-          <div className="sidebar-cta-icon">
-            <IoRocketOutline size={18} />
-          </div>
-          <p className="sidebar-cta-text">Maximize your reach</p>
-          <button className="btn btn-primary btn-sm sidebar-cta-btn">
-            Upgrade to Pro
-          </button>
-        </div>
 
         {/* Footer */}
         <div className="sidebar-footer">

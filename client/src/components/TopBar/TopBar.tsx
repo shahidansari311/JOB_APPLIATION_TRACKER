@@ -32,7 +32,7 @@ const TopBar: React.FC = () => {
           <div className="topbar-avatar">{initials}</div>
           <div className="topbar-user-info">
             <span className="topbar-user-name">{user?.name || 'User'}</span>
-            <span className="topbar-user-role">Design Lead</span>
+            <span className="topbar-user-role">{user?.email || ''}</span>
           </div>
         </div>
       </div>

@@ -5,7 +5,7 @@ import {
   deleteApplication,
   updateApplication,
 } from '../../services/applicationService';
-import type { Application, ApplicationStatus } from '../../types/application';
+import type { Application } from '../../types/application';
 import { APPLICATION_STATUSES, STATUS_CONFIG } from '../../types/application';
 import {
   IoFilterOutline,
@@ -16,9 +16,6 @@ import {
   IoEyeOutline,
   IoChevronBack,
   IoChevronForward,
-  IoSparkles,
-  IoTrendingUpOutline,
-  IoTimeOutline,
 } from 'react-icons/io5';
 import ApplicationDetailModal from '../../components/Modal/ApplicationDetailModal';
 import EditApplicationModal from '../../components/Modal/EditApplicationModal';
@@ -101,9 +98,7 @@ const ApplicationsPage: React.FC = () => {
       year: 'numeric',
     });
 
-  const interviewRate = applications.length > 0
-    ? Math.round((applications.filter(a => a.status === 'Interview' || a.status === 'Offer').length / applications.length) * 100)
-    : 0;
+
 
   if (isLoading) {
     return (
@@ -261,31 +256,7 @@ const ApplicationsPage: React.FC = () => {
         )}
       </div>
 
-      {/* Bottom Insight Banner */}
-      {applications.length > 0 && (
-        <div className="apps-insight-banner">
-          <div className="apps-insight-main">
-            <div className="apps-insight-content">
-              <h3 className="headline-md" style={{ color: '#fff' }}>
-                Interview conversion is up {interviewRate}%
-              </h3>
-              <p className="body-md" style={{ color: 'rgba(255,255,255,0.8)' }}>
-                Your tailored resume for Design Lead roles is performing exceptionally well this month.
-              </p>
-              <div className="apps-insight-badge">
-                <IoSparkles size={14} />
-                <span>AI SUGGESTION: APPLY TO 3 MORE FINTECH ROLES</span>
-              </div>
-            </div>
-          </div>
-          <div className="apps-insight-stat card">
-            <IoTimeOutline size={24} style={{ color: 'var(--primary)' }} />
-            <span className="display-md" style={{ lineHeight: 1 }}>4.2</span>
-            <span className="body-sm" style={{ color: 'var(--outline)' }}>Days</span>
-            <span className="body-sm" style={{ color: 'var(--outline)' }}>Avg. Response Time</span>
-          </div>
-        </div>
-      )}
+
 
       {/* Modals */}
       {viewApp && (

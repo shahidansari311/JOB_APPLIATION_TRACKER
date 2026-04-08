@@ -244,38 +244,6 @@
   margin-top: var(--space-sm);
 }
 
-.auth-divider {
-  display: flex;
-  align-items: center;
-  gap: var(--space-lg);
-  margin: var(--space-xl) 0;
-}
-
-.auth-divider::before,
-.auth-divider::after {
-  content: '';
-  flex: 1;
-  height: 1px;
-  background: var(--surface-container-high);
-}
-
-.auth-divider span {
-  font-size: 0.6875rem;
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  color: var(--outline);
-  white-space: nowrap;
-}
-
-.auth-social-buttons {
-  display: flex;
-  gap: var(--space-md);
-}
-
-.auth-social-btn {
-  flex: 1;
-}
-
 .auth-switch {
   margin-top: var(--space-xl);
   text-align: center;

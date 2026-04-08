@@ -10,8 +10,6 @@ import {
   IoEyeOutline,
   IoEyeOffOutline,
   IoArrowForward,
-  IoLogoGoogle,
-  IoLogoGithub,
 } from 'react-icons/io5';
 import './AuthPage.css';
 
@@ -197,21 +195,6 @@ const AuthPage: React.FC = () => {
               )}
             </button>
           </form>
-
-          <div className="auth-divider">
-            <span>OR CONTINUE WITH</span>
-          </div>
-
-          <div className="auth-social-buttons">
-            <button className="btn btn-secondary auth-social-btn">
-              <IoLogoGoogle size={18} />
-              <span>Google</span>
-            </button>
-            <button className="btn btn-secondary auth-social-btn">
-              <IoLogoGithub size={18} />
-              <span>GitHub</span>
-            </button>
-          </div>
 
           <p className="auth-switch">
             {isLogin ? (

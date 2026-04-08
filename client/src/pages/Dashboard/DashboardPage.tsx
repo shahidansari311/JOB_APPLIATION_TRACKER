@@ -12,7 +12,6 @@ import {
   IoCloseCircleOutline,
   IoSparkles,
   IoArrowForward,
-  IoTrendingUpOutline,
   IoBriefcaseOutline,
 } from 'react-icons/io5';
 import './DashboardPage.css';
@@ -53,25 +52,38 @@ const DashboardPage: React.FC = () => {
   const firstName = user?.name?.split(' ')[0] || 'User';
   const recentApps = applications.slice(0, 5);
 
-  const resumeScore = Math.min(
-    95,
-    Math.max(45, Math.round(50 + (stats.interview / Math.max(stats.total, 1)) * 100))
-  );
+  // Compute real skill frequency from applications
+  const skillMap: Record<string, number> = {};
+  applications.forEach((a) => {
+    a.requiredSkills?.forEach((s) => {
+      skillMap[s] = (skillMap[s] || 0) + 1;
+    });
+  });
+  const topSkills = Object.entries(skillMap)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 3)
+    .map(([name, count]) => ({
+      name,
+      pct: stats.total > 0 ? Math.round((count / stats.total) * 100) : 0,
+    }));
+
+  // Interview conversion rate (real)
+  const interviewRate = stats.total > 0
+    ? Math.round(((stats.interview + stats.offer) / stats.total) * 100)
+    : 0;
 
   const statCards = [
     {
       label: 'Total Applications',
       value: stats.total,
       icon: IoBriefcaseOutline,
-      trend: '+19%',
       color: 'var(--primary)',
       bg: 'var(--status-applied-bg)',
     },
     {
       label: 'Interviews',
-      value: stats.interview,
+      value: stats.interview + stats.phoneScreen,
       icon: IoCallOutline,
-      trend: 'Active',
       color: 'var(--status-interview)',
       bg: 'var(--status-interview-bg)',
     },
@@ -79,7 +91,6 @@ const DashboardPage: React.FC = () => {
       label: 'Offers Received',
       value: stats.offer,
       icon: IoTrophyOutline,
-      trend: stats.offer > 0 ? `Goal: ${stats.offer + 2}` : '0%',
       color: 'var(--status-offer)',
       bg: 'var(--status-offer-bg)',
     },
@@ -87,7 +98,6 @@ const DashboardPage: React.FC = () => {
       label: 'Rejected',
       value: stats.rejected,
       icon: IoCloseCircleOutline,
-      trend: '',
       color: 'var(--status-rejected)',
       bg: 'var(--status-rejected-bg)',
     },
@@ -116,7 +126,10 @@ const DashboardPage: React.FC = () => {
         <div>
           <h1 className="headline-lg">Career Overview</h1>
           <p className="body-md" style={{ color: 'var(--outline)', marginTop: 4 }}>
-            Welcome back, {firstName}. Your AI assistant has {stats.total > 0 ? `${stats.total} applications` : 'no insights yet'}.
+            Welcome back, {firstName}.
+            {stats.total > 0
+              ? ` You're tracking ${stats.total} application${stats.total !== 1 ? 's' : ''}.`
+              : ' Start tracking your job applications.'}
           </p>
         </div>
         <button
@@ -139,11 +152,6 @@ const DashboardPage: React.FC = () => {
               >
                 <stat.icon size={20} />
               </div>
-              {stat.trend && (
-                <span className="dash-stat-trend" style={{ color: stat.color }}>
-                  {stat.trend}
-                </span>
-              )}
             </div>
             <div className="dash-stat-value">{stat.value}</div>
             <div className="dash-stat-label">{stat.label}</div>
@@ -153,11 +161,11 @@ const DashboardPage: React.FC = () => {
 
       {/* Main Content Grid */}
       <div className="dashboard-grid">
-        {/* AI Curator Insights */}
+        {/* AI Insights — only show if data exists */}
         <div className="card dash-insights-card">
           <div className="dash-insights-header">
             <IoSparkles size={18} style={{ color: 'var(--primary)' }} />
-            <h3 className="title-md">AI Curator Insights</h3>
+            <h3 className="title-md">Pipeline Insights</h3>
           </div>
 
           <div className="dash-score-ring">
@@ -171,45 +179,34 @@ const DashboardPage: React.FC = () => {
                 stroke="var(--primary)"
                 strokeWidth="8"
                 strokeLinecap="round"
-                strokeDasharray={`${(resumeScore / 100) * 327} 327`}
+                strokeDasharray={`${(interviewRate / 100) * 327} 327`}
                 transform="rotate(-90 60 60)"
                 className="dash-score-progress"
               />
             </svg>
             <div className="dash-score-text">
-              <span className="dash-score-value">{resumeScore}</span>
-              <span className="dash-score-label">RESUME SCORE</span>
+              <span className="dash-score-value">{interviewRate}%</span>
+              <span className="dash-score-label">CONVERSION RATE</span>
             </div>
           </div>
 
-          <div className="dash-skill-bars">
-            <div className="dash-skill-bar">
-              <span className="dash-skill-name">UX Design Match</span>
-              <div className="dash-skill-track">
-                <div className="dash-skill-fill" style={{ width: '82%' }} />
-              </div>
-              <span className="dash-skill-pct">82%</span>
+          {topSkills.length > 0 ? (
+            <div className="dash-skill-bars">
+              {topSkills.map((skill) => (
+                <div className="dash-skill-bar" key={skill.name}>
+                  <span className="dash-skill-name">{skill.name}</span>
+                  <div className="dash-skill-track">
+                    <div className="dash-skill-fill" style={{ width: `${skill.pct}%` }} />
+                  </div>
+                  <span className="dash-skill-pct">{skill.pct}%</span>
+                </div>
+              ))}
             </div>
-            <div className="dash-skill-bar">
-              <span className="dash-skill-name">Product Strategy</span>
-              <div className="dash-skill-track">
-                <div className="dash-skill-fill" style={{ width: '76%' }} />
-              </div>
-              <span className="dash-skill-pct">76%</span>
-            </div>
-            <div className="dash-skill-bar">
-              <span className="dash-skill-name">Figma Proficiency</span>
-              <div className="dash-skill-track">
-                <div className="dash-skill-fill" style={{ width: '91%' }} />
-              </div>
-              <span className="dash-skill-pct">91%</span>
-            </div>
-          </div>
-
-          <button className="btn btn-secondary" style={{ width: '100%', marginTop: 'var(--space-lg)' }}>
-            <IoTrendingUpOutline size={16} />
-            Improve Resume Score
-          </button>
+          ) : (
+            <p className="body-sm" style={{ color: 'var(--outline)', textAlign: 'center' }}>
+              Add applications with AI parsing to see skill insights.
+            </p>
+          )}
         </div>
 
         {/* Recent Activity */}
@@ -219,18 +216,23 @@ const DashboardPage: React.FC = () => {
               <IoBriefcaseOutline size={18} style={{ color: 'var(--primary)' }} />
               <h3 className="title-md">Recent Activity</h3>
             </div>
-            <button
-              className="btn btn-ghost btn-sm"
-              onClick={() => navigate('/applications')}
-            >
-              View All
-            </button>
+            {applications.length > 0 && (
+              <button
+                className="btn btn-ghost btn-sm"
+                onClick={() => navigate('/applications')}
+              >
+                View All
+              </button>
+            )}
           </div>
 
           {recentApps.length === 0 ? (
             <div className="empty-state" style={{ padding: 'var(--space-2xl)' }}>
+              <div className="empty-state-icon">
+                <IoBriefcaseOutline size={32} />
+              </div>
               <p className="body-md" style={{ color: 'var(--outline)' }}>
-                No applications yet. Start tracking!
+                No applications yet. Click "Track New Application" to get started!
               </p>
             </div>
           ) : (
@@ -245,7 +247,7 @@ const DashboardPage: React.FC = () => {
                 <div
                   className="dash-activity-row"
                   key={app._id}
-                  onClick={() => navigate(`/applications`)}
+                  onClick={() => navigate('/applications')}
                 >
                   <div className="dash-activity-job">
                     <div
