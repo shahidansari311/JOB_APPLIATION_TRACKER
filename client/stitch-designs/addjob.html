@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Add Job | CareerCurator</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-container": "#b6b4ff",
+                        "tertiary-fixed": "#ffdbcc",
+                        "on-surface": "#191c1d",
+                        "on-primary-fixed-variant": "#3323cc",
+                        "tertiary-container": "#a44100",
+                        "surface-bright": "#f8f9fa",
+                        "surface-container-lowest": "#ffffff",
+                        "primary": "#3525cd",
+                        "surface-variant": "#e1e3e4",
+                        "primary-fixed-dim": "#c3c0ff",
+                        "on-primary": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "primary-container": "#4f46e5",
+                        "surface-dim": "#d9dadb",
+                        "on-tertiary": "#ffffff",
+                        "inverse-surface": "#2e3132",
+                        "inverse-primary": "#c3c0ff",
+                        "secondary-fixed-dim": "#c3c0ff",
+                        "surface-container-highest": "#e1e3e4",
+                        "surface-container-high": "#e7e8e9",
+                        "secondary-fixed": "#e2dfff",
+                        "tertiary": "#7e3000",
+                        "surface": "#f8f9fa",
+                        "on-tertiary-fixed-variant": "#7b2f00",
+                        "error-container": "#ffdad6",
+                        "tertiary-fixed-dim": "#ffb695",
+                        "on-tertiary-fixed": "#351000",
+                        "inverse-on-surface": "#f0f1f2",
+                        "on-secondary": "#ffffff",
+                        "surface-container-low": "#f3f4f5",
+                        "on-tertiary-container": "#ffd2be",
+                        "on-primary-fixed": "#0f0069",
+                        "surface-container": "#edeeef",
+                        "on-surface-variant": "#464555",
+                        "on-secondary-fixed-variant": "#413f82",
+                        "surface-tint": "#4d44e3",
+                        "outline": "#777587",
+                        "on-secondary-container": "#454386",
+                        "background": "#f8f9fa",
+                        "on-error": "#ffffff",
+                        "secondary": "#58579b",
+                        "error": "#ba1a1a",
+                        "primary-fixed": "#e2dfff",
+                        "on-primary-container": "#dad7ff",
+                        "on-secondary-fixed": "#140f54",
+                        "outline-variant": "#c7c4d8",
+                        "on-background": "#191c1d"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f9fa;
+        }
+        h1, h2, h3 {
+            font-family: 'Manrope', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background antialiased selection:bg-primary/20">
+<!-- SideNavBar (Authority: Shared Components JSON) -->
+<nav class="h-screen w-64 fixed left-0 top-0 bg-slate-50 flex flex-col p-4 space-y-2 font-manrope text-sm font-medium">
+<!-- Brand Header -->
+<div class="flex items-center space-x-3 px-4 py-8">
+<div class="w-10 h-10 rounded-xl bg-primary flex items-center justify-center text-white shadow-lg shadow-primary/20">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">insights</span>
+</div>
+<div>
+<h2 class="text-lg font-black text-indigo-600 leading-none">Curator AI</h2>
+<p class="text-[10px] uppercase tracking-widest text-slate-400 font-bold mt-1">Pro Workspace</p>
+</div>
+</div>
+<!-- Main Tabs -->
+<div class="flex-1 space-y-1">
+<a class="flex items-center space-x-3 px-4 py-3 text-slate-500 hover:text-slate-900 hover:bg-slate-200/50 transition-all rounded-xl" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span>Dashboard</span>
+</a>
+<!-- Active Tab: Add Job -->
+<a class="flex items-center space-x-3 px-4 py-3 bg-white text-indigo-600 shadow-sm rounded-xl transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="add_circle" style="font-variation-settings: 'FILL' 1;">add_circle</span>
+<span class="font-semibold">Add Job</span>
+</a>
+<a class="flex items-center space-x-3 px-4 py-3 text-slate-500 hover:text-slate-900 hover:bg-slate-200/50 transition-all rounded-xl" href="#">
+<span class="material-symbols-outlined" data-icon="description">description</span>
+<span>Applications</span>
+</a>
+<a class="flex items-center space-x-3 px-4 py-3 text-slate-500 hover:text-slate-900 hover:bg-slate-200/50 transition-all rounded-xl" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span>Analytics</span>
+</a>
+</div>
+<!-- CTA Section -->
+<div class="px-2 py-4">
+<div class="bg-indigo-50 rounded-2xl p-4 text-center">
+<p class="text-xs text-indigo-700 font-semibold mb-3">Maximize your reach</p>
+<button class="w-full py-2 bg-indigo-600 text-white rounded-xl text-xs font-bold hover:bg-indigo-700 transition-colors">
+                    Upgrade to Pro
+                </button>
+</div>
+</div>
+<!-- Footer Tabs -->
+<div class="pt-4 border-t border-slate-200/50 space-y-1">
+<a class="flex items-center space-x-3 px-4 py-3 text-slate-500 hover:text-slate-900 hover:bg-slate-200/50 transition-all rounded-xl" href="#">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+<span>Help Center</span>
+</a>
+<a class="flex items-center space-x-3 px-4 py-3 text-slate-500 hover:text-slate-900 hover:bg-slate-200/50 transition-all rounded-xl" href="#">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+<span>Sign Out</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="ml-64 min-h-screen flex flex-col">
+<!-- Top Navigation Utility (Authority: TopNavBar JSON) -->
+<header class="w-full sticky top-0 z-50 bg-white/80 backdrop-blur-xl flex justify-between items-center px-8 py-4 shadow-sm">
+<div class="flex items-center space-x-4">
+<div class="relative group">
+<span class="absolute inset-y-0 left-3 flex items-center text-slate-400 group-focus-within:text-indigo-600 transition-colors">
+<span class="material-symbols-outlined text-sm">search</span>
+</span>
+<input class="bg-slate-100/50 border-none rounded-full py-2 pl-10 pr-6 text-sm focus:ring-2 focus:ring-indigo-100 w-64 transition-all outline-none" placeholder="Search opportunities..." type="text"/>
+</div>
+</div>
+<div class="flex items-center space-x-6">
+<button class="relative text-slate-500 hover:text-indigo-600 transition-colors active:scale-95">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span class="absolute top-0 right-0 w-2 h-2 bg-error rounded-full ring-2 ring-white"></span>
+</button>
+<button class="text-slate-500 hover:text-indigo-600 transition-colors active:scale-95">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+<div class="h-8 w-px bg-slate-200"></div>
+<div class="flex items-center space-x-3">
+<div class="text-right hidden sm:block">
+<p class="text-xs font-bold text-slate-900">Alex Rivers</p>
+<p class="text-[10px] text-slate-500 font-medium">Design Lead</p>
+</div>
+<img alt="User profile" class="w-9 h-9 rounded-full object-cover ring-2 ring-indigo-50" data-alt="professional headshot of a creative professional in a bright studio setting with a friendly expression" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDzKSZjECvgCaYcO59hYtkTYWz5260aXyjcH39gcZr9pNIZFTP92guqDFAXocNDvhpkC5Mqcaab07JTHSEWWwY5IW96QM6eGbC9ykj3NJ7FNsvQm4psDtCG8_zur3SUDxZAuUALbvlPMU9_z-y7DS3pe9dlzIJNYHnyO8F_B0SHIjRXjM_xwx2WDqoNoBqxJ7O2_BPCjlka40CuvwXBIJC9BgOiUvvc71K_JX1UoU-_mlj12JcfmS394q2PmmU1cfr0gPTKSjDQMQI"/>
+</div>
+</div>
+</header>
+<!-- Focused Add Job Section -->
+<div class="flex-1 flex items-center justify-center p-8 bg-surface">
+<div class="w-full max-w-2xl">
+<!-- Header Area -->
+<div class="text-center mb-10">
+<div class="inline-flex items-center justify-center w-16 h-16 rounded-3xl bg-primary/10 text-primary mb-4">
+<span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 0, 'wght' 300;">post_add</span>
+</div>
+<h1 class="text-4xl font-extrabold text-slate-900 tracking-tight">Track a New Opportunity</h1>
+<p class="text-slate-500 mt-2 font-medium">AI will help you curate your application strategy.</p>
+</div>
+<!-- Form Card -->
+<div class="bg-surface-container-lowest rounded-[2rem] p-10 shadow-2xl shadow-indigo-900/5 relative overflow-hidden">
+<!-- Subtle Background Accent -->
+<div class="absolute top-0 right-0 -mr-20 -mt-20 w-64 h-64 bg-primary/5 rounded-full blur-3xl"></div>
+<div class="absolute bottom-0 left-0 -ml-16 -mb-16 w-48 h-48 bg-indigo-200/20 rounded-full blur-2xl"></div>
+<form class="relative z-10 space-y-8">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<!-- Job Title -->
+<div class="space-y-2">
+<label class="text-[11px] font-bold uppercase tracking-widest text-slate-400 px-1">Job Title</label>
+<input class="w-full bg-surface-container-low border-none rounded-xl px-4 py-4 text-on-surface focus:ring-2 focus:ring-primary/20 transition-all placeholder:text-slate-400" placeholder="e.g. Senior Product Designer" type="text"/>
+</div>
+<!-- Company Name -->
+<div class="space-y-2">
+<label class="text-[11px] font-bold uppercase tracking-widest text-slate-400 px-1">Company Name</label>
+<input class="w-full bg-surface-container-low border-none rounded-xl px-4 py-4 text-on-surface focus:ring-2 focus:ring-primary/20 transition-all placeholder:text-slate-400" placeholder="e.g. Linear Inc." type="text"/>
+</div>
+</div>
+<!-- Status Dropdown -->
+<div class="space-y-2">
+<label class="text-[11px] font-bold uppercase tracking-widest text-slate-400 px-1">Current Status</label>
+<div class="relative">
+<select class="w-full bg-surface-container-low border-none rounded-xl px-4 py-4 text-on-surface appearance-none focus:ring-2 focus:ring-primary/20 transition-all cursor-pointer">
+<option value="applied">Applied</option>
+<option value="interview">Interview</option>
+<option value="offer">Offer</option>
+<option value="rejected">Rejected</option>
+</select>
+<span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400">expand_more</span>
+</div>
+</div>
+<!-- Notes Textarea -->
+<div class="space-y-2">
+<label class="text-[11px] font-bold uppercase tracking-widest text-slate-400 px-1">Context &amp; Notes</label>
+<textarea class="w-full bg-surface-container-low border-none rounded-xl px-4 py-4 text-on-surface focus:ring-2 focus:ring-primary/20 transition-all placeholder:text-slate-400 resize-none" placeholder="Briefly describe the role, salary expectations, or why you're a fit..." rows="4"></textarea>
+</div>
+<!-- Submit Button -->
+<div class="pt-4">
+<button class="group relative w-full overflow-hidden rounded-2xl bg-gradient-to-r from-primary to-primary-container p-[2px] transition-transform active:scale-95" type="submit">
+<span class="relative block bg-gradient-to-r from-primary to-primary-container px-8 py-5 rounded-[14px] text-center text-white font-bold tracking-tight text-lg shadow-xl shadow-indigo-600/30 group-hover:shadow-indigo-600/50 transition-all">
+<div class="flex items-center justify-center space-x-2">
+<span>Initialize AI Tracking</span>
+<span class="material-symbols-outlined text-xl">auto_awesome</span>
+</div>
+</span>
+<!-- Glowing effect overlay -->
+<div class="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-500"></div>
+</button>
+</div>
+</form>
+</div>
+<!-- Footer Hint -->
+<div class="mt-8 flex items-center justify-center space-x-8 text-[11px] font-bold text-slate-400 uppercase tracking-widest">
+<div class="flex items-center space-x-2">
+<span class="material-symbols-outlined text-sm">lock</span>
+<span>Private Data</span>
+</div>
+<div class="flex items-center space-x-2">
+<span class="material-symbols-outlined text-sm">bolt</span>
+<span>Auto-Analysis</span>
+</div>
+<div class="flex items-center space-x-2">
+<span class="material-symbols-outlined text-sm">sync</span>
+<span>Multi-Device Sync</span>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Background Texture -->
+<div class="fixed inset-0 pointer-events-none opacity-[0.03] z-[-1]" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuC6qH8-BMwuBQqLWslvblrBZj3ME9cCXqv3jBm2ApKh0tCKdQJEv0rgkYvkS6fDyaNKn18ca0L2Ow7oh7WpFSb5PjkUnJMcEBKLaES4MQ2XxAEiRf3T7ty4etaxS27VCbOZqwvP8h2eNl5Kgl2_2ng8CQ4nuq3IEOjt3RLeu36U14P-x7zALUH69skNsi3G6e6QtCRBHE6o3cEONL9WkvcspmQvtdEhDCjqJM1WdfbPlH_9ld2yyPOqcgI1NkuT_lJX9v7DimqPAkA');"></div>
+</body></html>

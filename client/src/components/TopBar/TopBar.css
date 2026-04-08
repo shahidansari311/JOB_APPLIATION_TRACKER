@@ -1,0 +1,103 @@
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-lg) var(--space-2xl);
+  background: var(--surface-container-lowest);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.topbar-search {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  background: var(--surface-container-low);
+  border-radius: var(--radius-full);
+  padding: 0.5rem 1rem;
+  flex: 0 1 360px;
+  transition: all var(--transition-base);
+}
+
+.topbar-search:focus-within {
+  background: var(--surface-container-lowest);
+  box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.12);
+}
+
+.topbar-search-icon {
+  color: var(--outline);
+  flex-shrink: 0;
+}
+
+.topbar-search-input {
+  border: none;
+  outline: none;
+  background: transparent;
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  color: var(--on-surface);
+  width: 100%;
+  padding: 0;
+}
+
+.topbar-search-input::placeholder {
+  color: var(--outline);
+}
+
+.topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.topbar-action-btn {
+  color: var(--on-surface-variant);
+}
+
+.topbar-user {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  margin-left: var(--space-md);
+  padding-left: var(--space-md);
+}
+
+.topbar-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-full);
+  background: var(--primary-gradient);
+  color: var(--on-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.8125rem;
+  flex-shrink: 0;
+}
+
+.topbar-user-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.topbar-user-name {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.875rem;
+  color: var(--on-surface);
+  line-height: 1.2;
+}
+
+.topbar-user-role {
+  font-size: 0.6875rem;
+  color: var(--outline);
+  line-height: 1.2;
+}
+
+@media (max-width: 768px) {
+  .topbar-user-info { display: none; }
+  .topbar-search { flex: 1; }
+}
