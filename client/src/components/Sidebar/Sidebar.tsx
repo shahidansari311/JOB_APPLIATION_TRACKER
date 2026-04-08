@@ -7,7 +7,7 @@ import {
   IoDocumentTextOutline,
   IoBarChartOutline,
   IoLogOutOutline,
-  IoHelpCircleOutline,
+  IoPersonOutline,
   IoSparkles,
 } from 'react-icons/io5';
 import './Sidebar.css';
@@ -20,6 +20,7 @@ const Sidebar: React.FC = () => {
     { path: '/add-job', label: 'Add Job', icon: IoAddCircleOutline },
     { path: '/applications', label: 'Applications', icon: IoDocumentTextOutline },
     { path: '/analytics', label: 'Analytics', icon: IoBarChartOutline },
+    { path: '/profile', label: 'Profile', icon: IoPersonOutline },
   ];
 
   return (
@@ -54,10 +55,6 @@ const Sidebar: React.FC = () => {
 
         {/* Footer */}
         <div className="sidebar-footer">
-          <button className="sidebar-nav-item">
-            <IoHelpCircleOutline size={18} />
-            <span>Help Center</span>
-          </button>
           <button className="sidebar-nav-item" onClick={logout}>
             <IoLogOutOutline size={18} />
             <span>Sign Out</span>

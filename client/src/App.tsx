@@ -8,6 +8,7 @@ import DashboardPage from './pages/Dashboard/DashboardPage';
 import ApplicationsPage from './pages/Applications/ApplicationsPage';
 import AddJobPage from './pages/AddJob/AddJobPage';
 import AnalyticsPage from './pages/Analytics/AnalyticsPage';
+import ProfilePage from './pages/Profile/ProfilePage';
 
 const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { isAuthenticated, isLoading } = useAuth();
@@ -62,6 +63,7 @@ const App: React.FC = () => {
               <Route path="/applications" element={<ApplicationsPage />} />
               <Route path="/add-job" element={<AddJobPage />} />
               <Route path="/analytics" element={<AnalyticsPage />} />
+              <Route path="/profile" element={<ProfilePage />} />
             </Route>
             <Route path="*" element={<Navigate to="/login" replace />} />
           </Routes>
