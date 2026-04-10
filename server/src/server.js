@@ -1,9 +1,10 @@
 import app from "./app.js";
 import { connectDB } from "./config/db.js";
+import cors from "cors"; 
 
 const PORT = process.env.PORT || 5000;
 
-import cors from "cors"; // or const cors = require("cors");
+app.use(express.json());
 
 app.use(cors({
   origin: process.env.BACKEND,
