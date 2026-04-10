@@ -14,7 +14,10 @@ import errorHandler from "./middleware/error.middleware.js";
 const app = express();
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: "https://job-appliation-tracker.vercel.app",
+  credentials: true
+}));
 app.use(express.json({ limit: "10mb" }));
 
 // Routes

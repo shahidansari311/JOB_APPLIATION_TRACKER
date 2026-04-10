@@ -1,15 +1,7 @@
 import app from "./app.js";
-import { connectDB } from "./config/db.js";
-import cors from "cors"; 
+import { connectDB } from "./config/db.js"; 
 
 const PORT = process.env.PORT || 5000;
-
-app.use(express.json());
-
-app.use(cors({
-  origin: process.env.BACKEND,
-  credentials: true
-}));
 
 connectDB();
 
