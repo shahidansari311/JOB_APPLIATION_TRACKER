@@ -3,6 +3,13 @@ import { connectDB } from "./config/db.js";
 
 const PORT = process.env.PORT || 5000;
 
+import cors from "cors"; // or const cors = require("cors");
+
+app.use(cors({
+  origin: process.env.BACKEND,
+  credentials: true
+}));
+
 connectDB();
 
 app.listen(PORT, () => {
