@@ -15,8 +15,10 @@ const app = express();
 
 // Middleware
 app.use(cors({
-  origin: "https://job-appliation-tracker.vercel.app",
-  credentials: true
+  origin: process.env.BACKEND || "https://job-appliation-tracker.vercel.app",
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
 }));
 app.use(express.json({ limit: "10mb" }));
 
