@@ -94,3 +94,61 @@ export const getUserProfile = async (userId) => {
 
   return user;
 };
+
+/**
+ * Update user profile (name, email).
+ */
+export const updateUserProfile = async (userId, { name, email }) => {
+  const user = await User.findById(userId);
+
+  if (!user) {
+    const error = new Error("User not found");
+    error.statusCode = 404;
+    throw error;
+  }
+
+  // Check if email is being changed and already taken
+  if (email && email !== user.email) {
+    const existing = await User.findOne({ email });
+    if (existing) {
+      const error = new Error("Email already in use");
+      error.statusCode = 400;
+      throw error;
+    }
+  }
+
+  if (name) user.name = name;
+  if (email) user.email = email;
+
+  await user.save();
+
+  return {
+    _id: user._id,
+    name: user.name,
+    email: user.email,
+  };
+};
+
+/**
+ * Change user password.
+ */
+export const changeUserPassword = async (userId, { currentPassword, newPassword }) => {
+  const user = await User.findById(userId);
+
+  if (!user) {
+    const error = new Error("User not found");
+    error.statusCode = 404;
+    throw error;
+  }
+
+  const isMatch = await bcrypt.compare(currentPassword, user.password);
+  if (!isMatch) {
+    const error = new Error("Current password is incorrect");
+    error.statusCode = 400;
+    throw error;
+  }
+
+  const salt = await bcrypt.genSalt(10);
+  user.password = await bcrypt.hash(newPassword, salt);
+  await user.save();
+};
