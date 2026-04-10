@@ -1,23 +1,26 @@
 import OpenAI from "openai";
 
-let openai = null;
+let client = null;
 
 /**
- * Get or create the OpenAI client (lazy initialization).
+ * Get or create the Gemini client via OpenAI-compatible endpoint.
  * This avoids crashing at import time when env vars haven't loaded yet.
  */
-const getOpenAIClient = () => {
-  if (!openai) {
-    if (!process.env.OPENAI_API_KEY) {
-      throw Object.assign(new Error("OpenAI API key is not configured"), { statusCode: 500 });
+const getAIClient = () => {
+  if (!client) {
+    if (!process.env.GEMINI_API_KEY) {
+      throw Object.assign(new Error("Gemini API key is not configured"), { statusCode: 500 });
     }
-    openai = new OpenAI({
-      apiKey: process.env.OPENAI_API_KEY,
-      timeout: 25000, // 25s timeout to stay within Render's limits
+    client = new OpenAI({
+      apiKey: process.env.GEMINI_API_KEY,
+      baseURL: "https://generativelanguage.googleapis.com/v1beta/openai/",
+      timeout: 25000,
     });
   }
-  return openai;
+  return client;
 };
+
+const AI_MODEL = "gemini-2.0-flash";
 
 /**
  * Parse a job description using OpenAI and extract structured data.
@@ -34,8 +37,8 @@ export const parseJobDescription = async (jobDescription) => {
   }
 
   try {
-    const response = await getOpenAIClient().chat.completions.create({
-      model: "gpt-4o-mini",
+    const response = await getAIClient().chat.completions.create({
+      model: AI_MODEL,
       response_format: { type: "json_object" },
       messages: [
         {
@@ -101,8 +104,8 @@ export const generateResumeSuggestions = async (jobDetails) => {
   }
 
   try {
-    const response = await getOpenAIClient().chat.completions.create({
-      model: "gpt-4o-mini",
+    const response = await getAIClient().chat.completions.create({
+      model: AI_MODEL,
       response_format: { type: "json_object" },
       messages: [
         {
