@@ -3,24 +3,31 @@ import OpenAI from "openai";
 let client = null;
 
 /**
- * Get or create the Gemini client via OpenAI-compatible endpoint.
- * This avoids crashing at import time when env vars haven't loaded yet.
+ * Get or create the AI client (Groq via OpenAI-compatible endpoint).
+ * Falls back to Gemini if GROQ_API_KEY is not set.
  */
 const getAIClient = () => {
   if (!client) {
-    if (!process.env.GEMINI_API_KEY) {
-      throw Object.assign(new Error("Gemini API key is not configured"), { statusCode: 500 });
+    if (process.env.GROQ_API_KEY) {
+      client = new OpenAI({
+        apiKey: process.env.GROQ_API_KEY,
+        baseURL: "https://api.groq.com/openai/v1",
+        timeout: 25000,
+      });
+    } else if (process.env.GEMINI_API_KEY) {
+      client = new OpenAI({
+        apiKey: process.env.GEMINI_API_KEY,
+        baseURL: "https://generativelanguage.googleapis.com/v1beta/openai/",
+        timeout: 25000,
+      });
+    } else {
+      throw Object.assign(new Error("No AI API key configured (set GROQ_API_KEY or GEMINI_API_KEY)"), { statusCode: 500 });
     }
-    client = new OpenAI({
-      apiKey: process.env.GEMINI_API_KEY,
-      baseURL: "https://generativelanguage.googleapis.com/v1beta/openai/",
-      timeout: 25000,
-    });
   }
   return client;
 };
 
-const AI_MODEL = "gemini-2.0-flash";
+const AI_MODEL = process.env.GROQ_API_KEY ? "llama-3.3-70b-versatile" : "gemini-2.0-flash";
 
 /**
  * Parse a job description using OpenAI and extract structured data.
