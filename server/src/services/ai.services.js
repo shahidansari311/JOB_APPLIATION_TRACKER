@@ -8,8 +8,12 @@ let openai = null;
  */
 const getOpenAIClient = () => {
   if (!openai) {
+    if (!process.env.OPENAI_API_KEY) {
+      throw Object.assign(new Error("OpenAI API key is not configured"), { statusCode: 500 });
+    }
     openai = new OpenAI({
       apiKey: process.env.OPENAI_API_KEY,
+      timeout: 25000, // 25s timeout to stay within Render's limits
     });
   }
   return openai;
