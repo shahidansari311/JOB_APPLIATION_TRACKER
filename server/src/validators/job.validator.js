@@ -68,11 +68,18 @@ export const updateApplicationRules = [
     .withMessage(`Status must be one of: ${APPLICATION_STATUS_VALUES.join(", ")}`),
   body("jobDescriptionLink")
     .optional()
-    .isURL()
+    .trim()
+    .custom((value) => {
+      if (value === "" || value === undefined || value === null) return true;
+      try { new URL(value); return true; } catch { return false; }
+    })
     .withMessage("Job description link must be a valid URL"),
   body("dateApplied")
     .optional()
-    .isISO8601()
+    .custom((value) => {
+      if (!value) return true;
+      return !isNaN(new Date(value).getTime());
+    })
     .withMessage("Date applied must be a valid date"),
   body("salaryRange")
     .optional()
