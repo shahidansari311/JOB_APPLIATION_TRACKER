@@ -11,15 +11,36 @@ import aiRoutes from "./routes/ai.routes.js";
 import jobRoutes from "./routes/job.routes.js";
 import errorHandler from "./middleware/error.middleware.js";
 
-const app = express();
+const allowedOrigins = [
+  "https://job-appliation-tracker.vercel.app",
+  "http://localhost:5173",
+];
 
-// Middleware
-app.use(cors({
-  origin: process.env.BACKEND || "https://job-appliation-tracker.vercel.app",
+if (process.env.BACKEND) {
+  allowedOrigins.push(process.env.BACKEND);
+}
+
+const corsOptions = {
+  origin: (origin, callback) => {
+    // Allow requests with no origin (mobile apps, curl, etc.)
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(null, false);
+    }
+  },
   credentials: true,
   methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
-}));
+};
+
+const app = express();
+
+// Handle preflight for ALL routes
+app.options("*", cors(corsOptions));
+
+// Middleware
+app.use(cors(corsOptions));
 app.use(express.json({ limit: "10mb" }));
 
 // Routes
